@@ -66,7 +66,11 @@ module.exports = (env, argv) => {
       compress: true,
       port: 3000,
       hot: true,
-      historyApiFallback: true,
+      historyApiFallback: {
+        rewrites: [
+          { from: /^\//, to: '/index.html' }
+        ]
+      },
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',

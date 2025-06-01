@@ -11,7 +11,7 @@
     "predeploy": "npm run build:gh-pages",
     "deploy": "gh-pages -d dist --dotfiles"
   },
-  "homepage": "https://kondo-masaki.github.io/backlog-attachment-cleaner/v2",
+  "homepage": "https://kondo-masaki.github.io/backlog-attachment-cleaner/v2/",
   "dependencies": {
     "@chakra-ui/react": "^2.10.2",
     "@emotion/react": "^11.11.1",
