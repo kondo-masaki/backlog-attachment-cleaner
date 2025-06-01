@@ -3,15 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
   const isGitHubPages = env && env['gh-pages'];
+  const publicPath = isGitHubPages ? '/backlog-attachment-cleaner/v2/' : '/';
   
   return {
     entry: './src/index.tsx',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js',
+      filename: '[name].[contenthash].js',
       clean: true,
-      // GitHub Pages用のpublicPath設定
-      publicPath: isGitHubPages ? '/backlog-attachment-cleaner/v2/' : '/',
+      publicPath: publicPath,
     },
     module: {
       rules: [
@@ -39,9 +39,9 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './public/index.html',
-        // GitHub Pages用のmeta tag追加
         templateParameters: {
-          isGitHubPages: isGitHubPages
+          isGitHubPages: isGitHubPages,
+          publicPath: publicPath
         }
       }),
     ],
@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
       compress: true,
       port: 3000,
       hot: true,
-      // CORS設定（GitHub Pages対応）
+      historyApiFallback: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
@@ -61,6 +61,11 @@ module.exports = (env, argv) => {
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
     },
   };
 };
