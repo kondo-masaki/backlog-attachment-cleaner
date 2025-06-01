@@ -9,7 +9,8 @@ module.exports = (env, argv) => {
     entry: './src/index.tsx',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].[contenthash].js',
+      filename: 'js/[name].js',
+      chunkFilename: 'js/[name].chunk.js',
       clean: true,
       publicPath: publicPath,
     },
@@ -42,7 +43,20 @@ module.exports = (env, argv) => {
         templateParameters: {
           isGitHubPages: isGitHubPages,
           publicPath: publicPath
-        }
+        },
+        inject: true,
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true,
+        },
       }),
     ],
     devServer: {
@@ -65,6 +79,7 @@ module.exports = (env, argv) => {
     optimization: {
       splitChunks: {
         chunks: 'all',
+        name: false,
       },
     },
   };
