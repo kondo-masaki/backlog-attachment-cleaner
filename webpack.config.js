@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = (env, argv) => {
   const isGitHubPages = env && env['gh-pages'];
   
+  const publicPath = isGitHubPages ? '/backlog-attachment-cleaner/' : '/';
+  
   return {
     entry: './src/index.js',
     output: {
@@ -11,7 +13,7 @@ module.exports = (env, argv) => {
       filename: 'bundle.js',
       clean: true,
       // GitHub Pages用のpublicPath設定
-      publicPath: isGitHubPages ? '/backlog-attachment-cleaner/' : '/',
+      publicPath: publicPath,
     },
     module: {
       rules: [
