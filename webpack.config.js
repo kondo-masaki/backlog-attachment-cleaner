@@ -11,7 +11,7 @@ module.exports = (env, argv) => {
       filename: 'bundle.js',
       clean: true,
       // GitHub Pages用のpublicPath設定
-      publicPath: isGitHubPages ? '/backlog-file-cleaner/' : '/',
+      publicPath: isGitHubPages ? '/backlog-attachment-cleaner/' : '/',
     },
     module: {
       rules: [
