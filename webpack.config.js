@@ -5,7 +5,7 @@ module.exports = (env, argv) => {
   const isGitHubPages = env && env['gh-pages'];
   
   return {
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js',
@@ -15,6 +15,11 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
+        {
+          test: /\.(ts|tsx)$/,
+          exclude: /node_modules/,
+          use: 'ts-loader',
+        },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
@@ -55,7 +60,7 @@ module.exports = (env, argv) => {
       }
     },
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
   };
 };
